@@ -32,3 +32,9 @@ Go to File -> Import -> Maven -> Existing Maven Projects ->
 select the extracted directory and click Finish
 
 Right click on project -> Run as -> Maven Install
+
+Then again right click on project -> Run as -> Java Application
+
+The server should run by default on localhost:**8080** 
+
+but we changed it in Java Resources > src/main/resources > application.properties to **9080**
