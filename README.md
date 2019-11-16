@@ -37,4 +37,4 @@ Then again right click on project -> Run as -> Java Application
 
 The server should run by default on localhost:**8080** 
 
-but we changed it in Java Resources > src/main/resources > application.properties to **9080**
+but we changed it in Java Resources > src/main/resources > application.properties to localhost**9080**
