@@ -3,7 +3,8 @@ package uni.fmi.masters.rest;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.springframework.http.ResponseEntity;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,20 +37,24 @@ public class Login {
 	}
 	
 	@PostMapping(path = "/login")
-	public ResponseEntity<UserBean> login(
+	public String login(
 			@RequestParam(value = "username") String username, 
-			@RequestParam(value = "password") String password) {
+			@RequestParam(value = "password") String password,
+			HttpSession session) {
 		
 		password = hashMe(password);
 		
 		UserBean user = userRepo.findUserByUsernameAndPassword(username, password);
 		
 		if(user != null) {
-			return ResponseEntity.ok().body(user);
+			session.setAttribute("user", user);
+			
+			return "home.html";
 		}
 			
-		return ResponseEntity.notFound().build();
+		return "error.html";
 	}
+	
 	
 	private String hashMe(String text) {
 		StringBuilder sb = new StringBuilder();

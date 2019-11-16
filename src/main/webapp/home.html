@@ -15,7 +15,7 @@
 		
 	<script src="https://code.jquery.com/jquery-3.4.1.js" > </script>
 
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 
 
@@ -184,6 +184,49 @@
 
 <script>
 
+function addComment(comment, city, temp, image) {
+	$.ajax({
+		url: "/comment/add",
+		method: "POST",
+		data: {
+			comment: comment,
+			selectCity: city,
+			temp: temp,
+			picture: image
+		},
+		success: function(data) {
+			if(data == "error") {
+				window.location.href = "index.html";
+			} else if(data == -1) {
+				alert("Insertion of the comment failed, please try again");
+			} else {
+				var miniMe = $('#cloneMe').clone();
+				
+				miniMe.attr('id', data);
+				miniMe.find('h4').text(city);
+				miniMe.find('p').html(comment);
+				miniMe.find('.current-temp').html(temp);
+				
+				/* следвщия път ще направим и delete да работи
+				miniMe.find('button').click(function (){
+					miniMe.remove();
+					
+				});
+				*/
+				
+				miniMe.show();
+				
+				$('#contentList').append(miniMe);
+				
+				$('#comment').val("");	
+			}
+		},
+		fail: function() {
+			alert("something went wrong!");
+		}
+	});
+}
+
 $(document).ready(function (){
 	
 	var apiid = "891be3d8ea6c5763c5d8e6ad1267c77b";
@@ -194,35 +237,14 @@ $(document).ready(function (){
 		
 		$.ajax({
 			method: "GET",
-			url: "http://api.openweathermap.org/data/2.5/weather?q=" 
-				+ cityName + 
-				"&appid=" + apiid + "&units=metric",
-			success: function(resp){				
-			
-				var miniMe = $('#cloneMe').clone();
-				
-				miniMe.attr('id', '');
-				miniMe.find('h4').text(cityName);
-				miniMe.find('p').html($('#comment').val());
-				miniMe.find('.current-temp').html(resp.main.temp);
-				miniMe.find('button').click(function (){
-					miniMe.remove();
-					
-				});
-				
-				miniMe.show();
-				
-				$('#contentList').append(miniMe);
-				
-				$('#comment').val("");				
-					
-				},
+			url: "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiid + "&units=metric",
+			success: function(resp){
+				addComment($('#comment').val(), cityName, resp.main.temp, "no_image");
+			},
 			error: function(){
 				alert("Something went TEREBLY WRONG!!!! \nYOU BROKE IT!");
-			}
-				
-			
-		})
+			}	
+		});
 		
 	});
 	
