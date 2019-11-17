@@ -5,6 +5,9 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,6 +56,17 @@ public class Login {
 		}
 			
 		return "error.html";
+	}
+	
+	@GetMapping(path = "/whoAmI")
+	public ResponseEntity<Integer> whoAmI(HttpSession session) {
+		UserBean user = (UserBean)session.getAttribute("user");
+		
+		if(user != null) {
+			return new ResponseEntity<>(user.getId(), HttpStatus.OK);
+		}
+		
+		return new ResponseEntity<>(0, HttpStatus.UNAUTHORIZED);
 	}
 	
 	

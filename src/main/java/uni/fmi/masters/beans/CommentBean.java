@@ -30,7 +30,7 @@ public class CommentBean {
 	@Column(name = "picture", length = 250)
 	private String picture;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private UserBean user;
 	
