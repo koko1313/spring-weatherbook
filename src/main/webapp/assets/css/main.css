@@ -194,6 +194,11 @@ header h1{
     display:none;
 }
 
+.panel {
+	background-color: white;
+	padding: 10px;
+}
+
 /*
     Inbox page
 */
