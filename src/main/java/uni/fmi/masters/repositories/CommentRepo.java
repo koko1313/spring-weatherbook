@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import uni.fmi.masters.beans.CommentBean;
 
+
 @Repository
-public interface CommentRepo extends JpaRepository<CommentBean, Integer>{
+public interface CommentRepo extends JpaRepository<CommentBean, Integer> {
 
 }
+

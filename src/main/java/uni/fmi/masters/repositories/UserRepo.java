@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import uni.fmi.masters.beans.UserBean;
 
+
 @Repository
 public interface UserRepo extends JpaRepository<UserBean, Integer> {
 
@@ -20,3 +21,4 @@ public interface UserRepo extends JpaRepository<UserBean, Integer> {
 	UserBean findByEmail(String email);
 	
 }
+
