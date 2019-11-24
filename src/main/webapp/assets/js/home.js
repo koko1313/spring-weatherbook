@@ -5,7 +5,7 @@ function getWhoAmI() {
 		url: "/whoAmI",
 		method: "GET",
 		success: function(data) {
-			me = data;
+			me = data.id;
 		},
 		fail: function() {
 			window.location.href = "index.html";
@@ -37,13 +37,13 @@ function addCommentTemplate(id, city, comment, temp, userId) {
 	miniMe.find('.current-temp').html(temp);
 	
 	// ако коментара е на логнатия потребител
-	if(me == userId) {
+	//if(me == userId) {
 		miniMe.find('button').click(function (){
 			deleteComment(miniMe, id);
 		});
-	} else {
-		miniMe.find('button').hide();
-	}
+	//} else {
+	//	miniMe.find('button').hide();
+	//}
 	
 	miniMe.show();
 	

@@ -15,4 +15,8 @@ public interface UserRepo extends JpaRepository<UserBean, Integer> {
 	
 	List<UserBean> findUserByUsernameContaining(String username);
 	
+	UserBean findByUsername(String username);
+	
+	UserBean findByEmail(String email);
+	
 }

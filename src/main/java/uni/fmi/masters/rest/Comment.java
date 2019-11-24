@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,6 +65,7 @@ public class Comment {
 	}
 	
 	@DeleteMapping(path = "/comment/delete")
+	@Secured("ROLE_ADMIN")
 	public ResponseEntity<Boolean> deleteComment(
 			@RequestParam(value = "id") int id,
 			HttpSession session) {
@@ -85,10 +87,10 @@ public class Comment {
 		CommentBean comment = optionalComment.get();
 		
 		// коментара не е наш
-		//if(!coment.getUser().equals(user)) {
-		if(comment.getUser().getId() != user.getId()) {
-			return new ResponseEntity<>(false, HttpStatus.I_AM_A_TEAPOT);
-		}
+		// махаме го, за да може админа да трие всички коментари
+		//if(comment.getUser().getId() != user.getId()) {
+		//	return new ResponseEntity<>(false, HttpStatus.I_AM_A_TEAPOT);
+		//}
 		
 		commentRepo.delete(comment);
 		
