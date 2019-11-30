@@ -122,11 +122,15 @@ $(document).ready(function (){
 	getAllComments(); // зареждаме всички коментари
 	
 	var apiid = "891be3d8ea6c5763c5d8e6ad1267c77b";
+
+	setInterval(function() {
+		getPlovdivTemp(apiid);
+	}, 5000);
 	
+
 	$('#postComment').click(function (){
-		
 		cityName = $('#select-city').val();
-		
+
 		$.ajax({
 			method: "GET",
 			url: "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiid + "&units=metric",
@@ -141,3 +145,16 @@ $(document).ready(function (){
 	});
 	
 });
+
+function getPlovdivTemp(apiid) {
+	$.ajax({
+		method: "GET",
+			url: "http://api.openweathermap.org/data/2.5/weather?q=" + "plovdiv" + "&appid=" + apiid + "&units=metric",
+			success: function(resp){
+				$("#current-temperature").html(resp.main.temp);
+			},
+			error: function(){
+				//
+			}	
+	});
+}
