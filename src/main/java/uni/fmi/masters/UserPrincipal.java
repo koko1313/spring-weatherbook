@@ -13,6 +13,8 @@ import uni.fmi.masters.beans.UserBean;
 
 public class UserPrincipal implements UserDetails {
 
+	private static final long serialVersionUID = 1L;
+	
 	private UserBean user;
 	private Set<GrantedAuthority> authorities;
 	

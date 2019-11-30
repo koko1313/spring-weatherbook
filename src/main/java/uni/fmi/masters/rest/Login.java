@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import uni.fmi.masters.WebSecurityConfig;
 import uni.fmi.masters.beans.UserBean;
 import uni.fmi.masters.repositories.UserRepo;
 
@@ -26,11 +26,11 @@ import uni.fmi.masters.repositories.UserRepo;
 public class Login {
 
 	private UserRepo userRepo;
-	private WebSecurityConfig webSecurityConfig;
+	private UserDetailsService userDetailsService;
 	
-	public Login(UserRepo userRepo, WebSecurityConfig webSecurityConfig) {
+	public Login(UserRepo userRepo, UserDetailsService userDetailsService) {
 		this.userRepo = userRepo;
-		this.webSecurityConfig = webSecurityConfig;
+		this.userDetailsService = userDetailsService;
 	}
 	
 	@PostMapping(path = "/register")
@@ -61,7 +61,7 @@ public class Login {
 		if(user != null) {
 			session.setAttribute("user", user);
 			
-			UserDetails userDetails = webSecurityConfig.userDetailsService().loadUserByUsername(user.getUsername());
+			UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
 			
 			if(userDetails != null) {
 				Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());

@@ -11,5 +11,5 @@ public class WeatherBookSpringApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WeatherBookSpringApplication.class, args);
 	}
-
+	
 }
