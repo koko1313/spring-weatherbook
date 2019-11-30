@@ -28,9 +28,9 @@ public class Login {
 	private UserRepo userRepo;
 	private WebSecurityConfig webSecurityConfig;
 	
-	public Login(UserRepo userRepo) {
+	public Login(UserRepo userRepo, WebSecurityConfig webSecurityConfig) {
 		this.userRepo = userRepo;
-		webSecurityConfig = new WebSecurityConfig();
+		this.webSecurityConfig = webSecurityConfig;
 	}
 	
 	@PostMapping(path = "/register")
