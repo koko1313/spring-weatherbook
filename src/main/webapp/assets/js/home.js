@@ -104,6 +104,19 @@ function addComment(comment, city, temp, image) {
 	});
 }
 
+function logout() {
+	$.ajax({
+		method: "POST",
+		url: "profile/logout",
+		success: function() {
+			window.location.href = "index.html";
+		},
+		error: function() {
+			alert("Unauthorized");
+		}
+	});
+}
+
 $(document).ready(function (){
 	getWhoAmI(); // взимаме ID-то на логнатия потребител
 	getAllComments(); // зареждаме всички коментари
