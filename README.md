@@ -1,6 +1,6 @@
 # WeatherBook
 
-Социална мрежа за споделяне на времето в различните градове, направена на Java Spring
+Социална мрежа за споделяне на времето в различните градове, направена на Java Spring и малко Vaadin
 
 ### Creating project with Spring Initializr
 
