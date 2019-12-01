@@ -44,7 +44,7 @@ public class UserBean {
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private List<CommentBean> comments;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER) // слагаме му Eager за да можем да му виждаме ролите там, където го правихме с Vaadin
 	@JoinTable(name = "account_role", 
 		joinColumns = @JoinColumn(name = "account_id"),
 		inverseJoinColumns = @JoinColumn(name = "role_id"))
